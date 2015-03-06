@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Chat example</title>
+<style>
+	#overlay {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: #000;
+	}
+	#lux {
+		font-size: 300px;
+		text-align: center;
+		display: table-cell;
+		width: 100%;
+		color: #fff;
+	}
+</style>
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script>
+
+
+
+var connection
+window.addEventListener("load", function () {
+	connection = new WebSocket("ws://"+window.location.hostname+":8081")
+	connection.onmessage = function (event) {
+		var h2 = document.getElementById("lux")
+		h2.textContent = event.data
+
+		$('#overlay').css({
+			'opacity': '0.'+ event.data
+		});
+	}
+})
+</script>
+</head>
+
+<body>
+<div id="overlay">
+	<h2 id="lux"></h2>
+
+</div>
+</body>
+</html>
